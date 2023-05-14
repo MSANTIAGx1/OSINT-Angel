@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 15px;
+        background-color: #f9f9f9;
+        text-align: center; /* Added this line */
+        overflow-y: hidden; /* Added this line */
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+      form {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+      input {
+        display: block;
+        width: 100%;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+      }
+      button:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>OSINT Angel</h1>
+    <form id="api-keys-form">
+      <label for="virus-total-api-key">VirusTotal API Key:</label>
+      <input type="password" id="virus-total-api-key" name="virus-total-api-key" />
+      <label for="abuse-ipdb-api-key">AbuseIPDB API Key:</label>
+      <input type="password" id="abuse-ipdb-api-key" name="abuse-ipdb-api-key" />
+      <label for="threat-jammer-api-key">ThreatJammer API Key:</label>
+      <input type="password" id="threat-jammer-api-key" name="threat-jammer-api-key" />
+      <label for="ibm-xforce-api-key">IBM X-Force API Key:</label>
+      <input type="password" id="ibm-xforce-api-key" name="ibm-xforce-api-key" />
+      <label for="ip-quality-score-api-key">IPQualityScore API Key:</label>
+      <input type="password" id="ip-quality-score-api-key" name="ip-quality-score-api-key" />
+      <button type="submit">Save API Keys</button>
+    </form>
+    <script src="popup.js"></script>
+  </body>
+</html>
