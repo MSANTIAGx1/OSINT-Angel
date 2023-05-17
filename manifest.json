@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "OSINT Angel",
-  "version": "0.0.0.3",
+  "version": "0.0.0.4",
   "description":"OSINT Angel is a browser extension that aids in gathering and analyzing OSINT data from various sources.",
   "icons": {
     "16": "icon16.png",
@@ -11,17 +11,19 @@
   "permissions": [
     "contextMenus",
     "scripting",
-    "storage",
-    "notifications"
+    "storage"
+
   ],
   "host_permissions": [
     "https://www.virustotal.com/api/v3/ip_addresses/*",
-    "https://dublin.api.threatjammer.com/v1/asn/*",
+    "https://api.abuseipdb.com/api/v2/*",
+    "https://dublin.api.threatjammer.com/v1/assess/ip/*",
+    "https://www.virustotal.com/api/v3/domains/*",
     "https://api.xforce.ibmcloud.com/api/url/*",
+    "https://api.xforce.ibmcloud.com/api/whois/*",
     "https://www.ipqualityscore.com/api/json/url/*",
-    "https://threatfox-api.abuse.ch/api/v1/*",
-    "https://mb-api.abuse.ch/api/v1/*",
-    "https://api.abuseipdb.com/api/v2/*"
+    "https://www.virustotal.com/api/v3/files/*",
+    "https://api.xforce.ibmcloud.com/api/malware/*"
   ],
   "action": {
     "default_popup": "popup.html",

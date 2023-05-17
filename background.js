@@ -134,20 +134,30 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     );
   }
 });
-
 function copyToClipboard(result) {
+  console.log("copyToClipboard called with result: ", result);
+  
   let code = 'navigator.clipboard.writeText("' + result + '")';
+  console.log("Generated code: ", code);
   
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.scripting.executeScript({
-      target: {tabId: tabs[0].id},
-      function: functionToInject,
-      args: [result]
-    });
+    console.log("Active tabs: ", tabs);
+    if (tabs.length > 0) {
+      console.log("Injecting script into tab with ID: ", tabs[0].id);
+      chrome.scripting.executeScript({
+        target: {tabId: tabs[0].id},
+        function: functionToInject,
+        args: [result]
+      });
+    } else {
+      console.error("No active tabs found.");
+    }
   });
 };
 
 function functionToInject(result) {
+  console.log("functionToInject called with result: ", result);
+  
   navigator.clipboard.writeText(result).then(function() {
     console.log('Copying to clipboard was successful!');
   }, function(err) {
@@ -155,8 +165,8 @@ function functionToInject(result) {
   });
 }
 
-function showNotification(title, message) {
-  chrome.storage.local.set({ notificationTitle: title, notificationMessage: message }, () => {
+function showNotification(title, message, result) {
+  chrome.storage.local.set({ notificationTitle: title, notificationMessage: message, clipboardText: result }, () => {
     chrome.windows.create({
       url: 'notification.html',
       type: 'popup',
@@ -165,7 +175,6 @@ function showNotification(title, message) {
     });
   });
 }
-
 
 async function handleIPClick(selectionText, keys) {
   console.log("Start IP handling:", new Date().toLocaleString());
@@ -239,9 +248,9 @@ ISP Info:
 - ${usageTypeString}
 - ${domainString}`;
 
-  copyToClipboard(outputString);
+  //copyToClipboard(outputString);
 
-  showNotification('IP OSINT Complete', "Completed");
+  showNotification('IP OSINT Complete', "Completed",outputString);
   console.log("End IP data processing:", new Date().toLocaleString());
 }
 
@@ -344,8 +353,8 @@ function processURLData([virusTotalData, ibmData, ibmWhoisData, ipQualityScoreDa
   const header = `OSINT on URL: "${input}"`;
   const result = `${header}\n- ${virusTotalResult}\n- ${ibmXForceResult}\n- ${ipQualityScoreResult}\n\n${ibmWhoisResult}`;
 
-  copyToClipboard(result);
-  showNotification('URL OSINT Complete', "Completed");
+ // copyToClipboard(result);
+  showNotification('URL OSINT Complete', "Completed",result);
   console.log("End URL data processing:", new Date().toLocaleString());
 }
 
@@ -425,11 +434,11 @@ function processHashData([virusTotalData, ibmData], input) {
 
       ibmXForceResult = `IBM X-Force: Risk ${risk}`;
     }
-    showNotification('HASH OSINT Complete', "Completed");
+  
   const header = `OSINT on HASH: "${input}"`;
   const result = `${header}\n- ${virusTotalResult} ${threatLabel}\n- ${ibmXForceResult}`;
 
-  copyToClipboard(result);
-
+ // copyToClipboard(result);
+  showNotification('HASH OSINT Complete', "Completed",result);
   console.log("End Hash data processing:", new Date().toLocaleString());
 }
